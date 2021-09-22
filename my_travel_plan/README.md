@@ -1,4 +1,4 @@
-# p2-iproject-client
+# my_travel_plan
 
 ## Project setup
 ```
