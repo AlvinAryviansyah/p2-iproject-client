@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="container">
+  <div id="register" >
     <div class="card register-card" style="width: 18rem">
       <div class="card-header">
         <h2>Register</h2>
@@ -69,7 +69,7 @@ export default {
 
 #register{
     margin-top: 5%;
-    background-image: url('https://thumbs.dreamstime.com/b/news-computer-screen-mockup-website-newspaper-portal-internet-news-computer-screen-mockup-website-185249239.jpg');
+    background-image: url('https://wallpapers-hub.art/wallpaper-images/219800.jpg');
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -84,6 +84,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     height: fit-content;
+    border-radius: 20px;
 }
 
 .card-header{

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10">
+  <div class="container mt-10 mb-10 homePage">
     <!-- Carousel -->
     <div id="carousel" class="carousel slide mb-5" data-ride="carousel">
       <div class="carousel-inner">
@@ -9,6 +9,9 @@
             src="https://cdn3.f-cdn.com/contestentries/54965/9049204/52d94d007d0be_thumb900.jpg"
             alt="First slide"
           />
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100 mt-5" src="https://wallpapers-hub.art/wallpaper-images/219800.jpg" alt="Second slide">
         </div>
       </div>
     </div>
@@ -80,10 +83,22 @@ img {
   margin-top: 5%;
 }
 
+#carousel img{
+  height: 300px;
+}
+
 #show-places {
   background-color: whitesmoke;
   background-size: cover;
   height: max-content;
   display: flex;
 }
+
+.homePage{
+  background-color: whitesmoke;
+}
+
+
+
+
 </style>

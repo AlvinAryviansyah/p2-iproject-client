@@ -15,7 +15,8 @@ export default new Vuex.Store({
     location_id: 0,
     hotels: [],
     restaurants: [],
-    attractions: []
+    attractions: [],
+    textFromSpeech: ""
   },
   mutations: {
     SET_LOGGEDIN(state, payload) {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     SET_FAVOURITES(state, payload){
       state.favourites = payload;
+    },
+    SET_TEXT_FROM_SPEECH(state, payload){
+      state.textFromSpeech = payload
     }
   },
   actions: {
@@ -99,6 +103,17 @@ export default new Vuex.Store({
         },
         data: payload
       })
+    },
+    getText(context, event){
+      console.log('hasil keluar')
+      console.log(this.search, '<<< ini search start dalam function')
+      var current = event.resultIndex;
+      var transcript = event.results[current][0].transcript;
+      console.log(transcript)
+      context.commit('SET_TEXT_FROM_SPEECH', transcript)
+      // this.search = transcript
+      // $('#searchArea').val(transcript)
+      console.log(this.search, '<<< ini search end')
     }
   },
   modules: {

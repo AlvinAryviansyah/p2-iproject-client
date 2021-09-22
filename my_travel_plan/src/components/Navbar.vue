@@ -2,21 +2,23 @@
     <header>
     <!-- Navbar -->
     <nav class="navbar fixed-top">
-      <div class="logo">
+      <div @click.prevent="toHome()" class="logo">
         <h2>My Travel Plan</h2>
       </div>
       <div class="menu">
         <!-- search bar -->
         <div class="input-group justify-content-center mb-3 mt-3">
+          <button @click.prevent="listening()" class="btn btn-danger my-2 my-sm-0 rounded-circle" type="submit"><i class="fas fa-microphone"></i></button>
           <form @submit.prevent="searchPlaces" class="form-inline my-2 my-lg-0">
-            <input v-model="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input v-model="search" class="form-control mr-sm-2" type="search" placeholder="Search" id="searchArea" aria-label="Search">
+            <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
       </div>
 
       <div  class="logout">
-          <router-link v-if="!isLoggedIn"  to="/login">SignIn</router-link>
+        <button class="btn btn-success my-2 my-sm-0" ><router-link style="color:white;" v-if="!isLoggedIn"  to="/login">SignIn</router-link></button>
+          
          
         <button
           v-if="isLoggedIn"
@@ -32,6 +34,10 @@
 </template>
 
 <script>
+let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = new SpeechRecognition()
+recognition.continous = true
+
 export default {
   data(){
     return {
@@ -41,7 +47,7 @@ export default {
   computed:{
     isLoggedIn(){
             return this.$store.state.isLoggedIn
-        }
+    }
   },
   methods:{
     signOut(){
@@ -58,6 +64,28 @@ export default {
         this.search = ""
       })
       .catch(err => this.$swal(err.response.data.message, "", "error"))
+    },
+    toHome(){
+      this.$router.push('/')
+    },
+    listening(){
+      console.log('start listening')
+      recognition.start()
+      recognition.onresult = this.convert
+    },
+    convert(event){
+      var current = event.resultIndex;
+      var transcript = event.results[current][0].transcript;
+      console.log(transcript)
+      this.search = transcript
+      this.$store.commit('SET_CURRENT_SEARCH', transcript)
+      this.$store.dispatch('searchPlaces', transcript)
+      .then(res => {
+        this.$store.commit('SET_PLACES', res.data)
+        this.$router.push('/')
+        this.search = ""
+      })
+      .catch(err => this.$swal(err.response.data.message, "", "error"))
     }
   }
 }
@@ -67,7 +95,7 @@ export default {
 nav {
   display: flex;
   flex-direction: row;
-  background-color: rgb(222, 233, 252);
+  background-color: #265bbb;
   justify-content: space-between;
   align-items: baseline;
   padding: 15px;
@@ -95,5 +123,9 @@ nav a {
   text-decoration: none;
   color: #000;
   font-size: large;
+}
+
+nav h2{
+  color: whitesmoke
 }
 </style>

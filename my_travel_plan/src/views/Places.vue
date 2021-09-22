@@ -18,7 +18,7 @@
     </div>
 
      <!-- Pagination -->
-    <div class="container" aria-label="Page navigation example">
+    <div class="container  mb-3" aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li v-if="currentPage !== 1" class="page-item">
           <a class="page-link" href=""  @click.prevent="previous()">Previous</a>

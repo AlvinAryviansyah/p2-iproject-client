@@ -1,6 +1,6 @@
 <template>
-  <div id="login" class="container">
-    <div class="card login-card" style="width: 18rem">
+  <div id="login" >
+    <div class="card login-card shadow-lg" style="width: 18rem">
       <div class="card-header">
         <h2>Sign In</h2>
       </div>
@@ -69,7 +69,7 @@ export default {
 
 #login {
   margin-top: 5%;
-  background-image: url("https://thumbs.dreamstime.com/b/news-computer-screen-mockup-website-newspaper-portal-internet-news-computer-screen-mockup-website-185249239.jpg");
+  background-image: url("https://wallpapers-hub.art/wallpaper-images/219800.jpg");
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -78,12 +78,13 @@ export default {
 .login-card {
   margin-right: auto;
   margin-top: auto;
-  margin-left: 200px;
+  margin-left: auto;
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: fit-content;
+  border-radius: 20px;
 }
 
 .card-header {
