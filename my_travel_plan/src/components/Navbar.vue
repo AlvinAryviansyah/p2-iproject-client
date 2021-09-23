@@ -3,14 +3,14 @@
     <!-- Navbar -->
     <nav class="navbar fixed-top">
       <div @click.prevent="toHome()" class="logo">
-        <h2>My Travel Plan</h2>
+        <h2> Tourists Help  <i class="fas fa-umbrella-beach"></i></h2>
       </div>
       <div class="menu">
         <!-- search bar -->
         <div class="input-group justify-content-center mb-3 mt-3">
           <button @click.prevent="listening()" class="btn btn-danger my-2 my-sm-0 rounded-circle" type="submit"><i class="fas fa-microphone"></i></button>
           <form @submit.prevent="searchPlaces" class="form-inline my-2 my-lg-0">
-            <input v-model="search" class="form-control mr-sm-2" type="search" placeholder="Search" id="searchArea" aria-label="Search">
+            <input v-model="search" class="form-control mr-sm-2" type="search" placeholder="Tell Us Your Destination?" id="searchArea" aria-label="Search">
             <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
@@ -60,6 +60,7 @@ export default {
       this.$store.dispatch('searchPlaces', payload)
       .then(res => {
         this.$store.commit('SET_PLACES', res.data)
+        this.$store.dispatch('getCovidData')
         this.$router.push('/')
         this.search = ""
       })
@@ -77,11 +78,13 @@ export default {
       var current = event.resultIndex;
       var transcript = event.results[current][0].transcript;
       console.log(transcript)
+      recognition.stop()
       this.search = transcript
       this.$store.commit('SET_CURRENT_SEARCH', transcript)
       this.$store.dispatch('searchPlaces', transcript)
       .then(res => {
         this.$store.commit('SET_PLACES', res.data)
+        this.$store.dispatch('getCovidData')
         this.$router.push('/')
         this.search = ""
       })

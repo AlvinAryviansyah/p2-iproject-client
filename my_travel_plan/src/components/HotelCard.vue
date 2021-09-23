@@ -14,7 +14,7 @@
             <p class="card-text">
               Price Range: {{description}}
             </p>
-            <a @click.prevent="addFavourite()" href="" class="btn btn-primary">Add To Favourite</a>
+            <a @click.prevent="showDetail()" href="" class="btn btn-primary">Show Detail</a>
           </div>
         </div>
     </div>
@@ -30,7 +30,20 @@ export default {
           this.$router.push("/favourites")
         })
         .catch(err => this.$swal(err.response.data.message, "", "error"))
+      },
+      showDetail(){
+        const payload = {
+          name: this.item.name,
+          description: this.item.description || null,
+          imgURL: this.item.photo.images.large.url,
+          address: this.item.address ||null,
+          priceRange: this.item.price || null,
+          lat: this.item.latitude || this.item.result_object.latitude,
+          long: this.item.longitude || this.item.result_object.longitude
         }
+        this.$store.commit('SET_DETAIL', payload)
+        this.$router.push('/detail')
+      }
     },
     computed:{
       description(){

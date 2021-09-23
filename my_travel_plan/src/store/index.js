@@ -13,10 +13,21 @@ export default new Vuex.Store({
     currentPage: 1,
     currentSearch: "",
     location_id: 0,
+    country: "",
     hotels: [],
     restaurants: [],
     attractions: [],
-    textFromSpeech: ""
+    textFromSpeech: "",
+    detail: {
+      name: "",
+      imgURL: "",
+      description: "",
+      address: "",
+      priceRange: "",
+      lat: 0,
+      long: 0
+    },
+    covid19: {}
   },
   mutations: {
     SET_LOGGEDIN(state, payload) {
@@ -25,8 +36,12 @@ export default new Vuex.Store({
     SET_PLACES(state, payload) {
       if(this.state.currentPage == 1){
         state.location_id = payload[0].result_object.location_id
+        state.country = payload[0].result_object.doubleclick_zone.split(".")[1]
       }
       state.places = payload;
+    },
+    SET_COVID19(state, payload){
+      state.covid19 = payload
     },
     SET_HOTELS(state, payload) {
       state.hotels = payload;
@@ -55,6 +70,9 @@ export default new Vuex.Store({
     },
     SET_TEXT_FROM_SPEECH(state, payload){
       state.textFromSpeech = payload
+    },
+    SET_DETAIL(state, payload){
+      state.detail = payload
     }
   },
   actions: {
@@ -75,6 +93,14 @@ export default new Vuex.Store({
     searchPlaces(context, payload){
       const search = payload || this.state.currentSearch
       return axios.get(`${this.state.baseURL}/places?search=${search}&page=${+this.state.currentPage}&size=6`);
+    },
+    getCovidData({commit}){
+      console.log('masuk get covid')
+      axios.get(`${this.state.baseURL}/covid?country=${this.state.country}`)
+      .then(res =>{
+        commit('SET_COVID19', res.data)
+      })
+      .catch(err => console.log(err))
     },
     searchHotels(){
       return axios.get(`${this.state.baseURL}/hotels?location_id=${this.state.location_id}&page=${+this.state.currentPage}`);
@@ -106,7 +132,6 @@ export default new Vuex.Store({
     },
     getText(context, event){
       console.log('hasil keluar')
-      console.log(this.search, '<<< ini search start dalam function')
       var current = event.resultIndex;
       var transcript = event.results[current][0].transcript;
       console.log(transcript)

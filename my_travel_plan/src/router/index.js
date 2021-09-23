@@ -8,6 +8,7 @@ import Places from "../views/Places.vue"
 import Hotels from "../views/Hotels.vue"
 import Restaurants from "../views/Restaurants.vue"
 import Attractions from "../views/Attractions.vue"
+import Detail from "../views/Detail.vue"
 
 Vue.use(VueRouter)
 
@@ -45,7 +46,7 @@ const routes = [
         path: 'attractions',
         name: "Attractions",
         component: Attractions
-      },
+      }
     ]
   },
   {
@@ -65,6 +66,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register
+  },
+  {
+    path: '/detail',
+    name: "Detail",
+    component: Detail
   }
 ]
 

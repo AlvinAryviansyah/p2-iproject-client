@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-10 mb-10 homePage">
     <!-- Carousel -->
-    <div id="carousel" class="carousel slide mb-5" data-ride="carousel">
+    <div id="carousel" class="carousel slide shadow-lg" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img
@@ -15,6 +15,8 @@
         </div>
       </div>
     </div>
+
+    <CovidData></CovidData>
 
     <!--Tab-->
     <div class="container mb-3">
@@ -43,9 +45,13 @@
 </template>
 
 <script>
+import CovidData from '../components/CovidData.vue'
 
 export default {
   name: "HomePage",
+  components:{
+    CovidData
+  },
   computed:{
     activeNav(){
       if(this.$route.name){
@@ -84,7 +90,9 @@ img {
 }
 
 #carousel img{
-  height: 300px;
+  height: 240px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 #show-places {

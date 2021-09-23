@@ -39,6 +39,7 @@ export default {
   this.$store.dispatch('searchPlaces')
   .then(res => {
     this.$store.commit('SET_PLACES', res.data)
+    this.$store.dispatch('getCovidData')
   })
   .catch(err => this.$swal(err.response.data.message, "", "error"))
   },
