@@ -17,14 +17,14 @@
       </div>
 
       <div  class="logout">
-        <button class="btn btn-success my-2 my-sm-0" ><router-link style="color:white;" v-if="!isLoggedIn"  to="/login">SignIn</router-link></button>
+        <button v-if="!isLoggedIn"  class="btn btn-success my-2 my-sm-0" ><router-link style="color:white;"  to="/login">SignIn</router-link></button>
           
          
         <button
           v-if="isLoggedIn"
           id="logout-button"
           type="button"
-          class="btn btn-primary"
+          class="btn btn-warning"
         >
           Log out
         </button>

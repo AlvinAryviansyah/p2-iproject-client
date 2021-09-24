@@ -25,7 +25,16 @@ export default {
     props: ['item'],
     methods:{
       addFavourite(){
-        this.$store.dispatch('addFavourite', this.item.id)
+        const payload = {
+          location_id: this.item.result_object.location_id,
+          lat: this.item.result_object.latitude,
+          long: this.item.result_object.longitude,
+          name: this.item.result_object.name,
+          imageUrl: this.item.result_object.photo.images.large.url,
+          address: this.item.result_object.address,
+          description: this.item.result_object.description || this.item.result_object.geo_description
+        }
+        this.$store.dispatch('addFavourite', payload)
         .then(() =>{
           this.$router.push("/favourites")
         })
@@ -47,6 +56,9 @@ export default {
       }
     },
     computed:{
+      isLoggedIn(){
+        return this.$store.state.isLoggedIn
+      },
       description(){
         if(this.item.result_object.geo_description){
           return this.item.result_object.geo_description.slice(0, 50)+'...'

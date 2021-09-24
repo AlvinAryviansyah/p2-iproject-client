@@ -5,7 +5,7 @@
         <h2>Register</h2>
       </div>
       <div class="card-body">
-        <form>
+        <form @submit.prevent="register()">
           <div class="input mb-3">
             <span class="input-group-text"><i class="fas fa-at"></i></span>
             <input
@@ -53,7 +53,7 @@ export default {
       }
       this.$store.dispatch('register', payload)
       .then(() =>{
-        this.$router.push({name: 'Home'})
+        this.$router.push('/login')
       })
       .catch(err => this.$swal(err.response.data.message, "", "error"))
     }

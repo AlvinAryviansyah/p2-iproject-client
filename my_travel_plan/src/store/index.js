@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
-    baseURL: "http://localhost:3000",
+    baseURL: "https://alvin-tourist-help.herokuapp.com",
     places: [],
     favourites: [],
     currentPage: 1,
@@ -88,6 +88,7 @@ export default new Vuex.Store({
       return axios.post(`${this.state.baseURL}/login`, payload)
     },
     register(context, payload){
+      console.log(payload)
       return axios.post(`${this.state.baseURL}/register`, payload)
     },
     searchPlaces(context, payload){
@@ -95,7 +96,6 @@ export default new Vuex.Store({
       return axios.get(`${this.state.baseURL}/places?search=${search}&page=${+this.state.currentPage}&size=6`);
     },
     getCovidData({commit}){
-      console.log('masuk get covid')
       axios.get(`${this.state.baseURL}/covid?country=${this.state.country}`)
       .then(res =>{
         commit('SET_COVID19', res.data)
@@ -121,13 +121,15 @@ export default new Vuex.Store({
       })
     },
     addFavourite(context, payload){
+      console.log(payload, '<<< ini payload')
+      
       return axios({
         method: "post",
         url: `${this.state.baseURL}/favourites`,
         headers: {
           access_token: localStorage.getItem("access_token")
         },
-        data: payload
+        params: payload
       })
     },
     getText(context, event){

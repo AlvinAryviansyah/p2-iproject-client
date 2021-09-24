@@ -13,6 +13,8 @@ import HFooter from 'vue-hacktiv8-footer'
 export default {
 created(){
   this.$store.commit('SET_CURRENT_SEARCH', "")
+
+  this.$store.dispatch('checkLogin') 
 },
 components:{
     Navbar,

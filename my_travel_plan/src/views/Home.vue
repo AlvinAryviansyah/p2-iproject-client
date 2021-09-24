@@ -34,7 +34,8 @@
           <router-link  class="nav-link" :class="{active: activeNav == 'Attractions'}"  to="/attractions">Attractions</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Favourites</a>
+          <router-link  class="nav-link disabled" :class="{active: activeNav == 'Favourites'}"  to="/favourites">Favourites</router-link>
+          
         </li>
       </ul>
     </div>
@@ -53,6 +54,9 @@ export default {
     CovidData
   },
   computed:{
+    isLoggedIn(){
+      return this.$store.state.isLoggedIn
+    },
     activeNav(){
       if(this.$route.name){
         return this.$route.name
